@@ -5,7 +5,7 @@
 layout: home
 ---
 
-# About me
+# Test
 
 I am an undergraduate student at Massachusetts Institute of Technology, Class of 2028. My major is [Artificial Intelligence and Decision Making](https://www.csail.mit.edu/) (Course 6-4) and [Mathematics](https://math.mit.edu/index.php) (Course 18). 
 
