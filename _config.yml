@@ -43,7 +43,7 @@ comments:
     # https://developers.facebook.com/docs/plugins/comments
     appid                :
     num_posts            : # 5 (default)
-    colorscheme          : # "light" (default), "dark"
+    colorscheme          : dark # "light" (default), "dark"
   utterances:
     theme                : # "github-light" (default), "github-dark"
     issue_term           : # "pathname" (default)
@@ -114,8 +114,8 @@ analytics:
 # Site Author
 author:
   name             : "Qiao Sun"
-  avatar           : "/assets/images/photo.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "an undergraduate student at MIT"
+  avatar           : "/assets/images/photo-casual.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  bio              : "an undergrad at MIT"
   location         : "Cambridge, MA"
   # email            : "sqa24@mit.edu"
   links:
