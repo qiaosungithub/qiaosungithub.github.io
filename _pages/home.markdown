@@ -15,4 +15,4 @@ I am an undergraduate student at Massachusetts Institute of Technology, Class of
 
 **Previously**: I graduated from [Shanghai High School](https://www.shs.cn/) in 2024. I won a gold medal in the 2023 International Mathematical Olympiad (IMO). During my last high school year, I study at [IIIS](https://iiis.tsinghua.edu.cn/) in Tsinghua University as a precollege student.
 
-My resume is attached [here](/assets/resume.pdf).
+My resume is attached [here](/assets/pdf/resume.pdf).
