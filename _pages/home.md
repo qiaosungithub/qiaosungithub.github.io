@@ -16,3 +16,30 @@ I am an undergraduate student at Massachusetts Institute of Technology, Class of
 **Previously**: I graduated from [Shanghai High School](https://www.shs.cn/) in 2024. I won a gold medal in the 2023 International Mathematical Olympiad (IMO). During my last high school year, I study at [IIIS](https://iiis.tsinghua.edu.cn/) in Tsinghua University as a precollege student.
 
 My resume is attached [here](/assets/pdf/resume.pdf).
+
+## Publications
+
+<!-- <figure class="third">
+    <a href="/assets/images/publications/wot.png"><img src="/assets/images/publications/wot.png"></a>
+    <p>Is Noise Conditioning Necessary for Denoising Generative Models?</p>
+    <!-- <figcaption>Caption describing these two images.</figcaption> -->
+<!-- </figure> -->
+
+<div class="row">
+    <div class="column" style="display: inline-block; vertical-align: top; width: 25%;">
+        <a href="/assets/images/wot.png"><img src="/assets/images/wot.png"></a>
+    </div>
+    <div class="column" style="display: inline-block; vertical-align: top; width: 70%; margin-left: 3%">
+        <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-bottom: 0;"><b>Is Noise Conditioning Necessary for Denoising Generative Models?</b></p>
+        <p style="display: inline-block; vertical-align: top; font-size: 14px; margin-top: 0; margin-bottom: 10px;">
+                <u><b>Q. Sun</b></u>, 
+                <span style="color: gray;">Z. Jiang</span>, 
+                <span style="color: gray;">H. Zhao</span>
+                <span style="color: gray;">and K. He</span>
+        </p>
+        <br>
+        <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-top: 10px;">
+             <a href="https://arxiv.org/abs/2502.13129" style="text-decoration: none; color: blue;">[Paper]</a>
+        </p>
+    </div>
+</div>
