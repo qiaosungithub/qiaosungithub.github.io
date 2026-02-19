@@ -46,7 +46,11 @@ My resume is attached [here](/assets/pdf/resume.pdf).
 
 <div class="row" style="margin-top: 20px;">
     <div class="column" style="display: inline-block; vertical-align: top; width: 25%;">
-        <a href="/assets/images/wot.png"><img src="/assets/images/wot.png"></a>
+        <a href="/assets/images/biflow.pdf" style="text-decoration: none;">
+            <object data="/assets/images/biflow.pdf" type="application/pdf" width="100%" height="180">
+                <img src="/assets/images/wot.png" alt="BiFlow teaser preview">
+            </object>
+        </a>
     </div>
     <div class="column" style="display: inline-block; vertical-align: top; width: 70%; margin-left: 3%">
         <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-bottom: 0;"><b>Bidirectional Normalizing Flow: From Data to Noise and Back</b></p>
@@ -67,7 +71,16 @@ My resume is attached [here](/assets/pdf/resume.pdf).
 
 <div class="row" style="margin-top: 20px;">
     <div class="column" style="display: inline-block; vertical-align: top; width: 25%;">
-        <a href="/assets/images/wot.png"><img src="/assets/images/wot.png"></a>
+        <a href="/assets/images/pmf_left.pdf" style="text-decoration: none; display: inline-block; width: 49%;">
+            <object data="/assets/images/pmf_left.pdf" type="application/pdf" width="100%" height="180">
+                <img src="/assets/images/wot.png" alt="pMF left teaser preview">
+            </object>
+        </a>
+        <a href="/assets/images/pmf_right.pdf" style="text-decoration: none; display: inline-block; width: 49%;">
+            <object data="/assets/images/pmf_right.pdf" type="application/pdf" width="100%" height="180">
+                <img src="/assets/images/wot.png" alt="pMF right teaser preview">
+            </object>
+        </a>
     </div>
     <div class="column" style="display: inline-block; vertical-align: top; width: 70%; margin-left: 3%">
         <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-bottom: 0;"><b>One-step Latent-free Image Generation with Pixel Mean Flows</b></p>
