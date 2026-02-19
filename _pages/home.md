@@ -9,9 +9,9 @@ permalink: /
 
 # About Me
 
-I am an undergraduate student at Massachusetts Institute of Technology, Class of 2028. My major is [Artificial Intelligence and Decision Making](https://www.csail.mit.edu/) (Course 6-4) and [Mathematics](https://math.mit.edu/index.php) (Course 18). 
+I am an undergraduate student at Massachusetts Institute of Technology, Class of 2028. My major is [Artificial Intelligence](https://www.csail.mit.edu/) (Course 6-4) and [Mathematics](https://math.mit.edu/index.php) (Course 18). 
 
-**Research**: I am currently an [UROP](https://urop.mit.edu/) student under [Kaiming He](https://people.csail.mit.edu/kaiming/)'s computer vision group, where I work with [Hanhong Zhao](https://hope7happiness.github.io/#about-me), [Zhicheng Jiang](https://jzc-2007.github.io/), Yiyang Lu and Xianbang Wang. My research mainly focuses on generative models, such as Diffusion Models, Flow Matching, etc. I am also interested in exploring / cooperating with you in other domains (Reinforcement Learning, Robotics, LLM inference, etc)!
+**Research**: I am currently an [UROP](https://urop.mit.edu/) student under [Kaiming He](https://people.csail.mit.edu/kaiming/)'s computer vision group, where I work as a team together with [Hanhong Zhao](https://hope7happiness.github.io/#about-me), [Zhicheng Jiang](https://jzc-2007.github.io/), [Yiyang Lu](https://lyy-iiis.github.io/) and [Xianbang Wang](https://peppaking8.github.io/). My research mainly focuses on generative models, such as diffusion-based models, Normalizing Flows, etc. Currently our team is also investigating vision-language understanding and Text-to-Image generation, with the hope to build a unified framework for both tasks. I am also interested in exploring / cooperating with you in other domains (Reinforcement Learning, Robotics, LLM inference, etc)!
 
 **Previously**: I graduated from [Shanghai High School](https://www.shs.cn/) in 2024. I won a gold medal in the 2023 International Mathematical Olympiad (IMO). During my last high school year, I study at [IIIS](https://iiis.tsinghua.edu.cn/) in Tsinghua University as a precollege student.
 
@@ -51,11 +51,16 @@ My resume is attached [here](/assets/pdf/resume.pdf).
     <div class="column" style="display: inline-block; vertical-align: top; width: 70%; margin-left: 3%">
         <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-bottom: 0;"><b>Bidirectional Normalizing Flow: From Data to Noise and Back</b></p>
         <p style="display: inline-block; vertical-align: top; font-size: 14px; margin-top: 0; margin-bottom: 10px;">
-                <u><b>Q. Sun</b></u>
+                <span style="color: gray;">Y. Lu</span>, 
+                <u><b>Q. Sun</b></u>，
+                <span style="color: gray;">X. Wang</span>, 
+                <span style="color: gray;">Z. Jiang</span>
+                <span style="color: gray;">H. Zhao</span>
+                <span style="color: gray;">and K. He</span>
         </p>
         <br>
         <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-top: 10px; color: gray;">
-             [Paper link coming soon]
+             <a href="https://arxiv.org/abs/2512.10953" style="text-decoration: none; color: blue;">[Paper]</a>
         </p>
     </div>
 </div>
@@ -67,11 +72,19 @@ My resume is attached [here](/assets/pdf/resume.pdf).
     <div class="column" style="display: inline-block; vertical-align: top; width: 70%; margin-left: 3%">
         <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-bottom: 0;"><b>One-step Latent-free Image Generation with Pixel Mean Flows</b></p>
         <p style="display: inline-block; vertical-align: top; font-size: 14px; margin-top: 0; margin-bottom: 10px;">
-                <u><b>Q. Sun</b></u>
+                <span style="color: gray;">Y. Lu</span>, 
+                <span style="color: gray;">S. Lu</span>, 
+                <u><b>Q. Sun</b></u>,
+                <span style="color: gray;">H. Zhao</span>, 
+                <span style="color: gray;">Z. Jiang</span>, 
+                <span style="color: gray;">X. Wang</span>, 
+                <span style="color: gray;">T. Li</span>, 
+                <span style="color: gray;">Z. Geng</span>, 
+                <span style="color: gray;">and K. He</span>
         </p>
         <br>
         <p style="display: inline-block; vertical-align: top; font-size: 16px; margin-top: 10px; color: gray;">
-             [Paper link coming soon]
+             <a href="https://arxiv.org/abs/2601.22158" style="text-decoration: none; color: blue;">[Paper]</a>
         </p>
     </div>
 </div>
