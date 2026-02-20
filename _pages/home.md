@@ -46,9 +46,14 @@ My resume is attached [here](/assets/pdf/resume.pdf).
 
 <div class="row" style="margin-top: 20px;">
     <div class="column" style="display: inline-block; vertical-align: top; width: 25%;">
-        <a href="/assets/images/biflow.pdf" style="text-decoration: none;">
-            <object data="/assets/images/biflow.pdf" type="application/pdf" width="100%" height="180">
-                <img src="/assets/images/wot.png" alt="BiFlow teaser preview">
+        <a href="/assets/images/biflow.pdf#page=1" style="text-decoration: none; display: inline-block; width: 49%;">
+            <object data="/assets/images/biflow.pdf#page=1" type="application/pdf" width="100%" height="180">
+                <img src="/assets/images/wot.png" alt="BiFlow teaser left preview">
+            </object>
+        </a>
+        <a href="/assets/images/biflow.pdf#page=2" style="text-decoration: none; display: inline-block; width: 49%;">
+            <object data="/assets/images/biflow.pdf#page=2" type="application/pdf" width="100%" height="180">
+                <img src="/assets/images/wot.png" alt="BiFlow teaser right preview">
             </object>
         </a>
     </div>
@@ -72,12 +77,12 @@ My resume is attached [here](/assets/pdf/resume.pdf).
 <div class="row" style="margin-top: 20px;">
     <div class="column" style="display: inline-block; vertical-align: top; width: 25%;">
         <a href="/assets/images/pmf_left.pdf" style="text-decoration: none; display: inline-block; width: 49%;">
-            <object data="/assets/images/pmf_left.pdf" type="application/pdf" width="100%" height="180">
+            <object data="/assets/images/pmf_left.pdf" type="application/pdf" width="100%" height="90">
                 <img src="/assets/images/wot.png" alt="pMF left teaser preview">
             </object>
         </a>
         <a href="/assets/images/pmf_right.pdf" style="text-decoration: none; display: inline-block; width: 49%;">
-            <object data="/assets/images/pmf_right.pdf" type="application/pdf" width="100%" height="180">
+            <object data="/assets/images/pmf_right.pdf" type="application/pdf" width="100%" height="90">
                 <img src="/assets/images/wot.png" alt="pMF right teaser preview">
             </object>
         </a>
