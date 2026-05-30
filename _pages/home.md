@@ -12,8 +12,9 @@ permalink: /
     I am an undergraduate at <a href="https://www.mit.edu/">MIT</a>, double majoring in
     <a href="https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-4-artificial-intelligence-and-decision-making/">Artificial Intelligence and Decision Making</a>
     (Course 6-4) and <a href="https://math.mit.edu/">Mathematics</a> (Course 18).
-    I work on generative modeling in <a href="https://people.csail.mit.edu/kaiming/">Kaiming He</a>'s
-    computer vision group as a UROP student, with a current focus on fast, simple, and principled
+    I work on generative modeling in He Vision Group, led by
+    <a href="https://people.csail.mit.edu/kaiming/">Kaiming He</a>, as a UROP student,
+    with a current focus on fast, simple, and principled
     image generation: diffusion and flow matching, normalizing flows, one-step generation, and
     multimodal understanding/generation.
   </p>
