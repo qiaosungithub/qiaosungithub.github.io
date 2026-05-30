@@ -1,5 +1,3 @@
-@import "custom";
-
 /* Copyright comment */
 @import "minimal-mistakes/copyright";
 
@@ -37,3 +35,6 @@
 @import "minimal-mistakes/archive";
 @import "minimal-mistakes/sidebar";
 @import "minimal-mistakes/print";
+
+/* Local overrides */
+@import "custom";

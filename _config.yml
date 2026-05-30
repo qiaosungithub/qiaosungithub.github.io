@@ -20,8 +20,8 @@ rtl                      : # true, false (default) # turns direction of the page
 title                    : "Qiao Sun"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Qiao Sun's Home Page"
-description              : "Qiao Sun's Home Page"
+name                     : "Qiao Sun"
+description              : "MIT undergraduate in AI and Mathematics working on generative models, fast image generation, and normalizing flows."
 url                      : "https://qiaosungithub.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -115,7 +115,7 @@ analytics:
 author:
   name             : "Qiao Sun"
   avatar           : "/assets/images/photo-casual-square.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "an undergrad at MIT"
+  bio              : "MIT AI + Math undergrad; generative modeling research"
   location         : "Cambridge, MA"
   # email            : "sqa24@mit.edu"
   links:
