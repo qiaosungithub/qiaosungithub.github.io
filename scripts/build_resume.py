@@ -83,7 +83,7 @@ RESUME = {
                 },
                 {
                     "title": "Bidirectional Normalizing Flow: From Data to Noise and Back",
-                    "meta": "Project lead and first author",
+                    "meta": "CVPR Spotlight; project lead and first author",
                     "date": "2025",
                     "bullets": [
                         "Revisited normalizing flows with a learned reverse map, eliminating explicit inverse-flow computation and slow autoregressive inference.",
@@ -92,7 +92,7 @@ RESUME = {
                 },
                 {
                     "title": "One-step Latent-free Image Generation with Pixel Mean Flows",
-                    "meta": "First author",
+                    "meta": "ICML accepted; first author",
                     "date": "2026",
                     "bullets": [
                         "Built a strong baseline for one-step, pixel-space, latent-free generation using MeanFlow with x-prediction.",

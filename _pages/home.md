@@ -88,7 +88,7 @@ permalink: /
         </a>
       </div>
       <div class="publication-content">
-        <p class="publication-venue">Project lead - first author</p>
+        <p class="publication-venue">CVPR Spotlight - project lead - first author</p>
         <h3>Bidirectional Normalizing Flow: From Data to Noise and Back</h3>
         <p class="publication-authors">
           Y. Lu, <strong>Q. Sun</strong>, X. Wang, Z. Jiang, H. Zhao, and K. He
@@ -115,7 +115,7 @@ permalink: /
         </a>
       </div>
       <div class="publication-content">
-        <p class="publication-venue">First author - one-step pixel-space generation</p>
+        <p class="publication-venue">ICML accepted - first author - one-step pixel-space generation</p>
         <h3>One-step Latent-free Image Generation with Pixel Mean Flows</h3>
         <p class="publication-authors">
           Y. Lu, S. Lu, <strong>Q. Sun</strong>, H. Zhao, Z. Jiang, X. Wang, T. Li, Z. Geng, and K. He
