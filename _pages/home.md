@@ -167,6 +167,10 @@ permalink: /
       <p><strong>Massachusetts Institute of Technology</strong>, undergraduate in AI and Mathematics, GPA 5.00/5.00.</p>
     </div>
     <div>
+      <span>2025</span>
+      <p>Top 17 in the 2025 Putnam Mathematical Competition.</p>
+    </div>
+    <div>
       <span>2024</span>
       <p>2nd place in the 2024 Putnam Mathematical Competition.</p>
     </div>

@@ -135,6 +135,10 @@ RESUME = {
             "page_break_before": True,
             "entries": [
                 {
+                    "title": "Top 17, 2025 Putnam Mathematical Competition",
+                    "date": "2025",
+                },
+                {
                     "title": "2nd place, 2024 Putnam Mathematical Competition",
                     "date": "2024",
                 },
