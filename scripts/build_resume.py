@@ -109,6 +109,7 @@ RESUME = {
                     "meta": "MIT 6.4210 course project; robotics manipulation",
                     "date": "2025",
                     "bullets": [
+                        "Project video: https://www.youtube.com/watch?v=MIpTpM4C71k&t=2s",
                         "Reimplemented a BeyondMimic-style humanoid loco-manipulation pipeline with simulated data preparation, diffusion training, and post-hoc control guidance.",
                         "Replaced DDPM sampling with flow matching and demonstrated lower-latency control with 5 sampling steps.",
                     ],

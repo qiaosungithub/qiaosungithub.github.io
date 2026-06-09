@@ -156,6 +156,9 @@ permalink: /
       then replaced DDPM sampling with flow matching. The project used simulation data, motion
       tracking, post-hoc control guidance, and lower-latency sampling with 5 FM steps.
     </p>
+    <p class="publication-links">
+      <a href="https://www.youtube.com/watch?v=MIpTpM4C71k&t=2s">Video</a>
+    </p>
   </article>
 </section>
 
