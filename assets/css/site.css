@@ -52,9 +52,9 @@
   --band-ink: #f2f7f5;
   --band-muted: #a3c5bd;
   --band-edge: rgba(163, 197, 189, 0.32);
-  --band-dots: rgba(163, 197, 189, 0.13);
-  --scrim: rgba(10, 23, 27, 0.9);
-  --scrim-mid: rgba(10, 23, 27, 0.55);
+  --scrim: rgba(10, 23, 27, 0.78);
+  --scrim-mid: rgba(10, 23, 27, 0.4);
+  --halo: 0 1px 14px rgba(6, 15, 18, 0.85);
 
   --font-display: "Newsreader", Georgia, "Times New Roman", serif;
   --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -87,8 +87,8 @@
     --bar: rgba(11, 19, 22, 0.78);
     --band-top: #060f12;
     --band-bottom: #0b262a;
-    --scrim: rgba(6, 15, 18, 0.9);
-    --scrim-mid: rgba(6, 15, 18, 0.55);
+    --scrim: rgba(6, 15, 18, 0.78);
+    --scrim-mid: rgba(6, 15, 18, 0.4);
     color-scheme: dark;
   }
 }
@@ -111,8 +111,8 @@
   --bar: rgba(11, 19, 22, 0.78);
   --band-top: #060f12;
   --band-bottom: #0b262a;
-  --scrim: rgba(6, 15, 18, 0.9);
-  --scrim-mid: rgba(6, 15, 18, 0.55);
+  --scrim: rgba(6, 15, 18, 0.78);
+  --scrim-mid: rgba(6, 15, 18, 0.4);
   color-scheme: dark;
 }
 
@@ -335,18 +335,6 @@ a:hover {
     linear-gradient(180deg, var(--band-top), var(--band-bottom));
 }
 
-/* Faint dot grid behind the contour lines. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: radial-gradient(var(--band-dots) 1px, transparent 1.4px);
-  background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(ellipse 58% 72% at 74% 42%, #000 15%, transparent 72%);
-  mask-image: radial-gradient(ellipse 58% 72% at 74% 42%, #000 15%, transparent 72%);
-}
-
 /* Keeps the name readable where lines pass under it. */
 .hero::after {
   content: "";
@@ -355,8 +343,8 @@ a:hover {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, var(--scrim) 0%, var(--scrim-mid) 34%, transparent 62%),
-    linear-gradient(0deg, var(--scrim-mid) 0%, transparent 40%);
+    linear-gradient(90deg, var(--scrim) 0%, var(--scrim-mid) 30%, transparent 55%),
+    linear-gradient(0deg, var(--scrim-mid) 0%, transparent 38%);
 }
 
 .field {
@@ -385,6 +373,7 @@ a:hover {
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--band-ink);
+  text-shadow: var(--halo);
 }
 
 .tagline {
@@ -395,6 +384,7 @@ a:hover {
   font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
   line-height: 1.45;
   color: var(--band-muted);
+  text-shadow: var(--halo);
 }
 
 .tagline .sep {
@@ -1031,7 +1021,6 @@ sup {
     color: #000;
   }
 
-  .hero::before,
   .hero::after {
     display: none;
   }

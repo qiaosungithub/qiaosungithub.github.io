@@ -66,14 +66,14 @@
     var noise = simplex3(seeded(2026));
 
     var LEVELS = 15, SPACING = 0.13;
-    var low = [96, 196, 180], high = [240, 198, 142];
+    var low = [120, 222, 202], high = [246, 206, 150];
     var styles = [];
     for (var l = 0; l < LEVELS; l++) {
       var f = l / (LEVELS - 1), major = l % 5 === 2;
       styles.push({
         level: (l - (LEVELS - 1) / 2) * SPACING,
-        width: major ? 1.3 : 0.8,
-        color: 'rgba(' + low.map(function (c, i) { return Math.round(c + (high[i] - c) * f); }).join(',') + ',' + (major ? 0.62 : 0.3) + ')'
+        width: major ? 1.6 : 0.9,
+        color: 'rgba(' + low.map(function (c, i) { return Math.round(c + (high[i] - c) * f); }).join(',') + ',' + (major ? 0.92 : 0.6) + ')'
       });
     }
 
@@ -125,7 +125,7 @@
     function frame(now) {
       if (!running) return;
       raf = requestAnimationFrame(frame);
-      if (now - lastDraw < 33) return; // the terrain moves slowly; 30 fps is plenty
+      if (now - lastDraw < 50) return; // the terrain moves slowly; 20 fps is plenty
       lastDraw = now;
       pointer.x += (pointer.tx - pointer.x) * 0.14;
       pointer.y += (pointer.ty - pointer.y) * 0.14;
@@ -209,13 +209,12 @@
     function layout() {
       W = hero.clientWidth;
       H = hero.clientHeight;
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.lineCap = 'round';
       var narrow = W < 640;
-      cell = narrow ? 8 : 10;
+      cell = narrow ? 10 : 12;
       scale = narrow ? 1 / 190 : 1 / 260;
       cols = Math.ceil(W / cell);
       rows = Math.ceil(H / cell);
@@ -223,19 +222,19 @@
       topFade = null;
       if (narrow) {
         fade = ctx.createLinearGradient(0, 0, 0, H);
-        fade.addColorStop(0, 'rgba(0,0,0,0.4)');
-        fade.addColorStop(0.14, 'rgba(0,0,0,0.95)');
-        fade.addColorStop(0.5, 'rgba(0,0,0,0.6)');
-        fade.addColorStop(1, 'rgba(0,0,0,0.12)');
+        fade.addColorStop(0, 'rgba(0,0,0,0.55)');
+        fade.addColorStop(0.14, 'rgba(0,0,0,1)');
+        fade.addColorStop(0.55, 'rgba(0,0,0,0.75)');
+        fade.addColorStop(1, 'rgba(0,0,0,0.25)');
       } else {
         topFade = ctx.createLinearGradient(0, 0, 0, 110);
-        topFade.addColorStop(0, 'rgba(0,0,0,0.35)');
+        topFade.addColorStop(0, 'rgba(0,0,0,0.5)');
         topFade.addColorStop(1, 'rgba(0,0,0,1)');
         fade = ctx.createLinearGradient(0, 0, W, 0);
-        fade.addColorStop(0, 'rgba(0,0,0,0.1)');
-        fade.addColorStop(0.42, 'rgba(0,0,0,0.38)');
-        fade.addColorStop(0.72, 'rgba(0,0,0,1)');
-        fade.addColorStop(1, 'rgba(0,0,0,0.85)');
+        fade.addColorStop(0, 'rgba(0,0,0,0.3)');
+        fade.addColorStop(0.4, 'rgba(0,0,0,0.62)');
+        fade.addColorStop(0.68, 'rgba(0,0,0,1)');
+        fade.addColorStop(1, 'rgba(0,0,0,0.92)');
       }
     }
   }
