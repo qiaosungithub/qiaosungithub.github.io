@@ -1,6 +1,5 @@
-/* A dark figure band up top, where particles follow a flow-matching ODE from
-   noise to toy data and back (assets/js/site.js), over an editorial grid:
-   section labels in a left rail, content on the right. */
+/* A dark band up top with drifting contour lines (assets/js/site.js), over an
+   editorial grid: section labels in a left rail, content on the right. */
 
 @font-face {
   font-family: "Newsreader";
@@ -336,7 +335,7 @@ a:hover {
     linear-gradient(180deg, var(--band-top), var(--band-bottom));
 }
 
-/* Plot-style dot grid behind the particles. */
+/* Faint dot grid behind the contour lines. */
 .hero::before {
   content: "";
   position: absolute;
@@ -348,7 +347,7 @@ a:hover {
   mask-image: radial-gradient(ellipse 58% 72% at 74% 42%, #000 15%, transparent 72%);
 }
 
-/* Keeps the name readable where particles drift under it. */
+/* Keeps the name readable where lines pass under it. */
 .hero::after {
   content: "";
   position: absolute;
@@ -360,7 +359,7 @@ a:hover {
     linear-gradient(0deg, var(--scrim-mid) 0%, transparent 40%);
 }
 
-.flow {
+.field {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -409,21 +408,6 @@ a:hover {
   margin: 1.6rem 0 0;
   padding: 0;
   list-style: none;
-}
-
-.flow-caption {
-  position: absolute;
-  right: var(--gutter);
-  bottom: 1.35rem;
-  display: flex;
-  gap: 1.1rem;
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--band-muted);
-  opacity: 0.85;
-  font-variant-numeric: tabular-nums;
 }
 
 /* Pills: contact links in the band, paper and project links below. */
@@ -1029,13 +1013,6 @@ sup {
     display: none;
   }
 
-  .flow-caption {
-    top: 4.4rem;
-    right: auto;
-    bottom: auto;
-    left: var(--gutter);
-  }
-
   .section-head {
     flex-wrap: wrap;
   }
@@ -1043,8 +1020,7 @@ sup {
 
 @media print {
   .topbar,
-  .flow,
-  .flow-caption,
+  .field,
   .skip-link,
   .to-top {
     display: none !important;

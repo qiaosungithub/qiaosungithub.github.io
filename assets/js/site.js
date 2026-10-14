@@ -1,4 +1,4 @@
-// Theme toggle, top bar state, scroll reveal, and the hero animation.
+// Theme toggle, top bar state, scroll reveal, and the hero background.
 (function () {
   'use strict';
 
@@ -54,92 +54,70 @@
     revealEls.forEach(function (el) { revealer.observe(el); });
   }
 
-  if (hero) initFlow(hero);
+  if (hero) initField(hero);
 
-  // Particles follow the probability-flow ODE of flow matching,
-  //   x_t = t * x1 + (1 - t) * x0,  x0 ~ N(0, I),
-  // from noise to a 2-D toy distribution and back. Each target is a Gaussian
-  // mixture with isotropic sigma, which makes the marginal velocity exact:
-  //   v(x, t) = ((1 - t) m - (1 - t - t sigma^2) x) / s^2,
-  //   s^2 = t^2 sigma^2 + (1 - t)^2,
-  //   m = sum_k w_k mu_k,  w = softmax_k(-|x - t mu_k|^2 / (2 s^2)).
-  function initFlow(hero) {
-    var canvas = hero.querySelector('.flow');
+  // Contour lines of a slowly drifting noise terrain, drawn like a survey map:
+  // marching squares on a coarse grid, tinted by height, with every fifth line
+  // heavier. The pointer raises a soft hill beneath it.
+  function initField(hero) {
+    var canvas = hero.querySelector('.field');
     if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext('2d');
-    var inner = hero.querySelector('.hero-inner');
-    var labelEl = hero.querySelector('.flow-label');
-    var timeEl = hero.querySelector('.flow-t');
+    var noise = simplex3(seeded(2026));
 
-    var TAU = Math.PI * 2;
-    var T_END = 0.985; // the field stiffens as t -> 1; stopping short is invisible
-    var ARROW = ' → ';
-
-    var targets = [
-      { name: 'two moons', sigma: 0.05, mu: moons(128) },
-      { name: 'checkerboard', sigma: 0.09, mu: checkerboard() },
-      { name: 'spirals', sigma: 0.055, mu: spirals(160) },
-      { name: 'lemniscate', sigma: 0.045, mu: lemniscate(128) },
-      { name: '8 gaussians', sigma: 0.11, mu: ring(8, 1.5) }
-    ];
-    var maxCenters = 0;
-    targets.forEach(function (d) { maxCenters = Math.max(maxCenters, d.mu.length / 2); });
-    var logits = new Float32Array(maxCenters);
-
-    // Colors follow each particle's starting angle in noise space, so the
-    // noise-to-data map stays visible from one target to the next.
-    var palette = ['rgba(166,238,220,0.9)', 'rgba(127,220,202,0.9)', 'rgba(82,192,177,0.9)', 'rgba(127,220,202,0.9)',
-      'rgba(207,227,176,0.9)', 'rgba(242,201,138,0.9)', 'rgba(244,169,106,0.9)', 'rgba(242,201,138,0.9)'];
-
-    var W = 0, H = 0, cx = 0, cy = 0, scale = 1, dotR = 1.2;
-    var N = hero.clientWidth < 640 ? 460 : 760;
-    var px = new Float32Array(N), py = new Float32Array(N);
-    var zx = new Float32Array(N), zy = new Float32Array(N); // each particle's own noise
-    var buckets = palette.map(function () { return []; });
-    var rand = seeded(2026);
-    for (var i = 0; i < N; i++) {
-      var r = Math.sqrt(-2 * Math.log(Math.max(rand(), 1e-7))), a = TAU * rand();
-      px[i] = zx[i] = r * Math.cos(a);
-      py[i] = zy[i] = r * Math.sin(a);
-      buckets[Math.floor(a / TAU * palette.length) % palette.length].push(i);
+    var LEVELS = 15, SPACING = 0.13;
+    var low = [96, 196, 180], high = [240, 198, 142];
+    var styles = [];
+    for (var l = 0; l < LEVELS; l++) {
+      var f = l / (LEVELS - 1), major = l % 5 === 2;
+      styles.push({
+        level: (l - (LEVELS - 1) / 2) * SPACING,
+        width: major ? 1.3 : 0.8,
+        color: 'rgba(' + low.map(function (c, i) { return Math.round(c + (high[i] - c) * f); }).join(',') + ',' + (major ? 0.62 : 0.3) + ')'
+      });
     }
 
-    var t = 0;
-    var phases = [
-      { flow: 1, dur: 2800 },  // noise -> data
-      { flow: 0, dur: 1900 },  // hold on data
-      { flow: -1, dur: 2300 }, // data -> noise
-      { flow: 0, dur: 600 }    // hold on noise
-    ];
-    var phase = 3, clock = 0, target = targets.length - 1;
-    var idleFrames = 0, last = 0, raf = 0, running = false, tick = 0;
-    var shownLabel = '', shownTime = '';
+    var W = 0, H = 0, cell = 10, scale = 1 / 260, cols = 0, rows = 0, values = null, fade = null, topFade = null;
+    var pointer = { x: 0, y: 0, tx: 0, ty: 0, a: 0, ta: 0 };
+    var start = performance.now(), raf = 0, running = false, lastDraw = 0;
 
     layout();
 
     if (reduceMotion) {
-      drawStill();
-      window.addEventListener('resize', debounce(function () { layout(); drawStill(); }, 150));
+      draw(0);
+      window.addEventListener('resize', debounce(function () { layout(); draw(0); }, 150));
       return;
     }
 
-    window.addEventListener('resize', debounce(function () { layout(); idleFrames = 0; }, 150));
+    hero.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      var box = hero.getBoundingClientRect();
+      pointer.tx = e.clientX - box.left;
+      pointer.ty = e.clientY - box.top;
+      if (pointer.a < 0.02) {
+        pointer.x = pointer.tx;
+        pointer.y = pointer.ty;
+      }
+      pointer.ta = 1;
+    });
+    hero.addEventListener('pointerleave', function () { pointer.ta = 0; });
+    window.addEventListener('resize', debounce(function () { layout(); lastDraw = 0; }, 150));
+
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) start(); else stop();
+        if (entries[0].isIntersecting) play(); else pause();
       }).observe(hero);
     } else {
-      start();
+      play();
     }
 
-    function start() {
+    function play() {
       if (running) return;
       running = true;
-      last = 0;
       raf = requestAnimationFrame(frame);
     }
 
-    function stop() {
+    function pause() {
       running = false;
       cancelAnimationFrame(raf);
     }
@@ -147,145 +125,87 @@
     function frame(now) {
       if (!running) return;
       raf = requestAnimationFrame(frame);
-      var dt = last ? Math.min(now - last, 50) : 16;
-      last = now;
-      clock += dt;
-
-      var p = phases[phase];
-      var u = Math.min(clock / p.dur, 1);
-      if (p.flow) {
-        var e = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
-        advance(p.flow > 0 ? T_END * e : T_END * (1 - e));
-        idleFrames = 0;
-      } else if (t < 0.5) {
-        // Euler error accumulates over the round trip; settle back onto the
-        // starting noise so the cloud never drifts or shrinks.
-        var k = 1 - Math.exp(-dt / 150);
-        for (var i = 0; i < N; i++) {
-          px[i] += (zx[i] - px[i]) * k;
-          py[i] += (zy[i] - py[i]) * k;
-        }
-        if (clock < 450) idleFrames = 0;
-      }
-      if (idleFrames++ < 45) draw(); // let trails fade during a hold, then rest
-      caption(p);
-
-      if (u >= 1) {
-        clock = 0;
-        phase = (phase + 1) % phases.length;
-        if (phase === 0) target = (target + 1) % targets.length;
-      }
+      if (now - lastDraw < 33) return; // the terrain moves slowly; 30 fps is plenty
+      lastDraw = now;
+      pointer.x += (pointer.tx - pointer.x) * 0.14;
+      pointer.y += (pointer.ty - pointer.y) * 0.14;
+      pointer.a += (pointer.ta - pointer.a) * 0.07;
+      draw((now - start) / 1000);
     }
 
-    // Euler steps toward tTarget, smaller as t nears 1 where the field is steep.
-    function advance(tTarget) {
-      var d = targets[target];
-      for (var guard = 0; Math.abs(tTarget - t) > 1e-6 && guard < 32; guard++) {
-        var hMax = Math.min(0.03, 0.22 * (1 - Math.max(t, tTarget)) + 0.002);
-        var h = Math.max(-hMax, Math.min(hMax, tTarget - t));
-        step(d, h);
-        t += h;
-      }
-    }
-
-    function step(d, h) {
-      var mu = d.mu, M = mu.length, s2 = t * t * d.sigma * d.sigma + (1 - t) * (1 - t);
-      var inv = 0.5 / s2, ca = (1 - t) / s2, cb = (1 - t - t * d.sigma * d.sigma) / s2;
-      for (var i = 0; i < N; i++) {
-        var x = px[i], y = py[i], best = -Infinity, k, j;
-        for (k = 0, j = 0; k < M; k += 2, j++) {
-          var dx = x - t * mu[k], dy = y - t * mu[k + 1];
-          var l = -(dx * dx + dy * dy) * inv;
-          logits[j] = l;
-          if (l > best) best = l;
-        }
-        var z = 0, mx = 0, my = 0;
-        for (k = 0, j = 0; k < M; k += 2, j++) {
-          var g = logits[j] - best;
-          if (g > -18) {
-            var w = Math.exp(g);
-            z += w;
-            mx += w * mu[k];
-            my += w * mu[k + 1];
+    function draw(time) {
+      var z = time * 0.045, drift = time * 0.012, s = scale;
+      var hill = pointer.a > 0.01, r2 = 2 * 110 * 110, idx = 0, i, j;
+      for (j = 0; j <= rows; j++) {
+        for (i = 0; i <= cols; i++, idx++) {
+          var x = i * cell, y = j * cell;
+          var v = noise(x * s + drift, y * s, z) + 0.45 * noise(x * s * 2.1 + 7.3, y * s * 2.1 - drift, z * 1.4 + 3.1);
+          if (hill) {
+            var dx = x - pointer.x, dy = y - pointer.y;
+            v += 0.55 * pointer.a * Math.exp(-(dx * dx + dy * dy) / r2);
           }
+          values[idx] = v;
         }
-        px[i] = x + h * (ca * mx / z - cb * x);
-        py[i] = y + h * (ca * my / z - cb * y);
       }
-    }
 
-    function draw() {
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0,0,0,0.22)';
-      ctx.fillRect(0, 0, W, H);
-      ctx.globalCompositeOperation = 'lighter';
-      dots(1);
-      ctx.globalCompositeOperation = 'source-over';
-    }
-
-    function dots(alpha) {
-      ctx.globalAlpha = alpha;
-      for (var b = 0; b < buckets.length; b++) {
-        var list = buckets[b];
-        ctx.fillStyle = palette[b];
-        ctx.beginPath();
-        for (var n = 0; n < list.length; n++) {
-          var i = list[n], x = cx + px[i] * scale, y = cy - py[i] * scale;
-          ctx.moveTo(x + dotR, y);
-          ctx.arc(x, y, dotR, 0, TAU);
-        }
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-    }
-
-    function caption(p) {
-      if (!labelEl || tick++ % 3) return;
-      var name = targets[target].name;
-      var label = p.flow > 0 ? 'noise' + ARROW + name : p.flow < 0 ? name + ARROW + 'noise' : t > 0.5 ? name : 'noise';
-      var time = 't = ' + (t / T_END).toFixed(2);
-      if (label !== shownLabel) labelEl.textContent = shownLabel = label;
-      if (time !== shownTime) timeEl.textContent = shownTime = time;
-    }
-
-    // Reduced motion: one still figure of trajectories into the first target.
-    function drawStill() {
-      var steps = 40, xs = [], ys = [], i;
-      var saveX = Float32Array.from(px), saveY = Float32Array.from(py), saveT = t, saveTarget = target;
-      for (i = 0; i < N; i++) { xs.push([px[i]]); ys.push([py[i]]); }
-      target = 0;
-      t = 0;
-      for (var s = 1; s <= steps; s++) {
-        var q = s / steps;
-        advance(T_END * (1 - (1 - q) * (1 - q)));
-        for (i = 0; i < N; i++) { xs[i].push(px[i]); ys[i].push(py[i]); }
-      }
       ctx.clearRect(0, 0, W, H);
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.lineWidth = 0.6;
-      for (var b = 0; b < buckets.length; b++) {
-        ctx.strokeStyle = palette[b].replace('0.9)', '0.16)');
+      for (var l = 0; l < styles.length; l++) {
         ctx.beginPath();
-        buckets[b].forEach(function (n) {
-          ctx.moveTo(cx + xs[n][0] * scale, cy - ys[n][0] * scale);
-          for (var k = 1; k < xs[n].length; k++) ctx.lineTo(cx + xs[n][k] * scale, cy - ys[n][k] * scale);
-        });
+        contour(styles[l].level);
+        ctx.lineWidth = styles[l].width;
+        ctx.strokeStyle = styles[l].color;
         ctx.stroke();
       }
-      dots(1);
-      ctx.globalCompositeOperation = 'source-over';
-      if (labelEl) {
-        labelEl.textContent = 'noise' + ARROW + targets[0].name;
-        timeEl.textContent = 't = 0' + ARROW + '1';
+      // Fade the map out toward the name and under the top bar.
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.fillStyle = fade;
+      ctx.fillRect(0, 0, W, H);
+      if (topFade) {
+        ctx.fillStyle = topFade;
+        ctx.fillRect(0, 0, W, H);
       }
-      px.set(saveX);
-      py.set(saveY);
-      t = saveT;
-      target = saveTarget;
+      ctx.globalCompositeOperation = 'source-over';
     }
 
-    // Place the figure in the right part of the content column (centered on
-    // phones, above the name), in data units of about +-1.75.
+    // Marching squares for one level. Corners: a top-left, b top-right,
+    // e bottom-right, d bottom-left; saddles are split by the cell's mean.
+    function contour(level) {
+      var stride = cols + 1, c = cell;
+      for (var j = 0; j < rows; j++) {
+        var y = j * c;
+        for (var i = 0; i < cols; i++) {
+          var k = j * stride + i;
+          var a = values[k], b = values[k + 1], d = values[k + stride], e = values[k + stride + 1];
+          var code = (a > level ? 8 : 0) | (b > level ? 4 : 0) | (e > level ? 2 : 0) | (d > level ? 1 : 0);
+          if (code === 0 || code === 15) continue;
+          var x = i * c;
+          var top = x + c * (level - a) / (b - a), right = y + c * (level - b) / (e - b);
+          var bottom = x + c * (level - d) / (e - d), left = y + c * (level - a) / (d - a);
+          switch (code) {
+            case 1: case 14: seg(x, left, bottom, y + c); break;
+            case 2: case 13: seg(bottom, y + c, x + c, right); break;
+            case 3: case 12: seg(x, left, x + c, right); break;
+            case 4: case 11: seg(top, y, x + c, right); break;
+            case 6: case 9: seg(top, y, bottom, y + c); break;
+            case 7: case 8: seg(top, y, x, left); break;
+            default: // 5 or 10
+              if ((code === 5) === ((a + b + d + e) / 4 > level)) {
+                seg(top, y, x, left);
+                seg(bottom, y + c, x + c, right);
+              } else {
+                seg(top, y, x + c, right);
+                seg(x, left, bottom, y + c);
+              }
+          }
+        }
+      }
+    }
+
+    function seg(x1, y1, x2, y2) {
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+    }
+
     function layout() {
       W = hero.clientWidth;
       H = hero.clientHeight;
@@ -293,76 +213,77 @@
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var box = inner.getBoundingClientRect();
-      var pad = parseFloat(getComputedStyle(inner).paddingLeft) || 0;
-      var left = box.left + pad, width = box.width - 2 * pad;
-      if (W >= 640) {
-        cx = left + width * (W >= 1024 ? 0.79 : 0.74);
-        cy = H * 0.4;
-        scale = Math.min(H * 0.27, width * 0.19, 180) / 1.75;
-        dotR = 1.25;
+      ctx.lineCap = 'round';
+      var narrow = W < 640;
+      cell = narrow ? 8 : 10;
+      scale = narrow ? 1 / 190 : 1 / 260;
+      cols = Math.ceil(W / cell);
+      rows = Math.ceil(H / cell);
+      values = new Float32Array((cols + 1) * (rows + 1));
+      topFade = null;
+      if (narrow) {
+        fade = ctx.createLinearGradient(0, 0, 0, H);
+        fade.addColorStop(0, 'rgba(0,0,0,0.4)');
+        fade.addColorStop(0.14, 'rgba(0,0,0,0.95)');
+        fade.addColorStop(0.5, 'rgba(0,0,0,0.6)');
+        fade.addColorStop(1, 'rgba(0,0,0,0.12)');
       } else {
-        cx = W / 2;
-        cy = H * 0.33;
-        scale = Math.min(W * 0.4, H * 0.21) / 1.75;
-        dotR = 1.05;
+        topFade = ctx.createLinearGradient(0, 0, 0, 110);
+        topFade.addColorStop(0, 'rgba(0,0,0,0.35)');
+        topFade.addColorStop(1, 'rgba(0,0,0,1)');
+        fade = ctx.createLinearGradient(0, 0, W, 0);
+        fade.addColorStop(0, 'rgba(0,0,0,0.1)');
+        fade.addColorStop(0.42, 'rgba(0,0,0,0.38)');
+        fade.addColorStop(0.72, 'rgba(0,0,0,1)');
+        fade.addColorStop(1, 'rgba(0,0,0,0.85)');
       }
     }
   }
 
-  function moons(n) {
-    var mu = [], half = n / 2;
-    for (var i = 0; i < half; i++) {
-      var a = Math.PI * i / (half - 1);
-      mu.push((Math.cos(a) - 0.5) * 1.15, (Math.sin(a) - 0.25) * 1.15);
-      mu.push((0.5 - Math.cos(a)) * 1.15, (0.25 - Math.sin(a)) * 1.15);
+  // 3-D simplex noise, after Stefan Gustavson's public-domain reference code.
+  function simplex3(rand) {
+    var grad = [1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1, 0, 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1];
+    var p = new Uint8Array(256), perm = new Uint8Array(512), mod12 = new Uint8Array(512), i;
+    for (i = 0; i < 256; i++) p[i] = i;
+    for (i = 255; i > 0; i--) {
+      var r = Math.floor(rand() * (i + 1)), tmp = p[i];
+      p[i] = p[r];
+      p[r] = tmp;
     }
-    return new Float32Array(mu);
-  }
+    for (i = 0; i < 512; i++) {
+      perm[i] = p[i & 255];
+      mod12[i] = perm[i] % 12;
+    }
+    var G3 = 1 / 6;
 
-  function checkerboard() {
-    var mu = [], rand = seeded(11), size = 0.8, k = 4, cell = size / k;
-    for (var i = 0; i < 4; i++) {
-      for (var j = 0; j < 4; j++) {
-        if ((i + j) % 2) continue;
-        for (var a = 0; a < k; a++) {
-          for (var b = 0; b < k; b++) {
-            mu.push(-1.6 + i * size + (a + 0.5 + (rand() - 0.5) * 0.6) * cell,
-              -1.6 + j * size + (b + 0.5 + (rand() - 0.5) * 0.6) * cell);
-          }
-        }
-      }
+    function corner(x, y, z, g) {
+      var t = 0.6 - x * x - y * y - z * z;
+      if (t < 0) return 0;
+      g *= 3;
+      t *= t;
+      return t * t * (grad[g] * x + grad[g + 1] * y + grad[g + 2] * z);
     }
-    return new Float32Array(mu);
-  }
 
-  function spirals(n) {
-    var mu = [], per = n / 2;
-    for (var arm = 0; arm < 2; arm++) {
-      for (var i = 0; i < per; i++) {
-        var u = i / (per - 1), r = 0.2 + 1.45 * u, a = 0.6 + u * 2.6 * Math.PI + arm * Math.PI;
-        mu.push(r * Math.cos(a), r * Math.sin(a));
-      }
-    }
-    return new Float32Array(mu);
-  }
-
-  function lemniscate(n) {
-    var mu = [], size = 1.75;
-    for (var i = 0; i < n; i++) {
-      var a = Math.PI * 2 * i / n, s = Math.sin(a), d = 1 + s * s;
-      mu.push(size * Math.cos(a) / d, size * s * Math.cos(a) / d);
-    }
-    return new Float32Array(mu);
-  }
-
-  function ring(n, radius) {
-    var mu = [];
-    for (var i = 0; i < n; i++) {
-      var a = Math.PI * 2 * i / n;
-      mu.push(radius * Math.cos(a), radius * Math.sin(a));
-    }
-    return new Float32Array(mu);
+    return function (x, y, z) {
+      var s = (x + y + z) / 3;
+      var i = Math.floor(x + s), j = Math.floor(y + s), k = Math.floor(z + s);
+      var t = (i + j + k) * G3;
+      var x0 = x - i + t, y0 = y - j + t, z0 = z - k + t;
+      var i1, j1, k1, i2, j2, k2;
+      if (x0 >= y0) {
+        if (y0 >= z0) { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 1; k2 = 0; }
+        else if (x0 >= z0) { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 0; k2 = 1; }
+        else { i1 = 0; j1 = 0; k1 = 1; i2 = 1; j2 = 0; k2 = 1; }
+      } else if (y0 < z0) { i1 = 0; j1 = 0; k1 = 1; i2 = 0; j2 = 1; k2 = 1; }
+      else if (x0 < z0) { i1 = 0; j1 = 1; k1 = 0; i2 = 0; j2 = 1; k2 = 1; }
+      else { i1 = 0; j1 = 1; k1 = 0; i2 = 1; j2 = 1; k2 = 0; }
+      var ii = i & 255, jj = j & 255, kk = k & 255;
+      return 32 * (
+        corner(x0, y0, z0, mod12[ii + perm[jj + perm[kk]]]) +
+        corner(x0 - i1 + G3, y0 - j1 + G3, z0 - k1 + G3, mod12[ii + i1 + perm[jj + j1 + perm[kk + k1]]]) +
+        corner(x0 - i2 + 2 * G3, y0 - j2 + 2 * G3, z0 - k2 + 2 * G3, mod12[ii + i2 + perm[jj + j2 + perm[kk + k2]]]) +
+        corner(x0 - 0.5, y0 - 0.5, z0 - 0.5, mod12[ii + 1 + perm[jj + 1 + perm[kk + 1]]]));
+    };
   }
 
   function seeded(seed) {
