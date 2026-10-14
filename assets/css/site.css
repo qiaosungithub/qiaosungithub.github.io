@@ -1,5 +1,5 @@
-/* A dark band up top with drifting contour lines (assets/js/site.js), over an
-   editorial grid: section labels in a left rail, content on the right. */
+/* A dark name band up top over an editorial grid: section labels in a left
+   rail, content on the right. */
 
 @font-face {
   font-family: "Newsreader";
@@ -52,9 +52,6 @@
   --band-ink: #f2f7f5;
   --band-muted: #a3c5bd;
   --band-edge: rgba(163, 197, 189, 0.32);
-  --scrim: rgba(10, 23, 27, 0.78);
-  --scrim-mid: rgba(10, 23, 27, 0.4);
-  --halo: 0 1px 14px rgba(6, 15, 18, 0.85);
 
   --font-display: "Newsreader", Georgia, "Times New Roman", serif;
   --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -87,8 +84,6 @@
     --bar: rgba(11, 19, 22, 0.78);
     --band-top: #060f12;
     --band-bottom: #0b262a;
-    --scrim: rgba(6, 15, 18, 0.78);
-    --scrim-mid: rgba(6, 15, 18, 0.4);
     color-scheme: dark;
   }
 }
@@ -111,8 +106,6 @@
   --bar: rgba(11, 19, 22, 0.78);
   --band-top: #060f12;
   --band-bottom: #0b262a;
-  --scrim: rgba(6, 15, 18, 0.78);
-  --scrim-mid: rgba(6, 15, 18, 0.4);
   color-scheme: dark;
 }
 
@@ -325,9 +318,6 @@ a:hover {
 /* Hero band */
 
 .hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   color: var(--band-ink);
   background:
     radial-gradient(52rem 30rem at 76% 36%, var(--band-glow), transparent 68%),
@@ -335,33 +325,11 @@ a:hover {
     linear-gradient(180deg, var(--band-top), var(--band-bottom));
 }
 
-/* Keeps the name readable where lines pass under it. */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, var(--scrim) 0%, var(--scrim-mid) 30%, transparent 55%),
-    linear-gradient(0deg, var(--scrim-mid) 0%, transparent 38%);
-}
-
-.field {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .hero-inner {
-  position: relative;
-  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: clamp(31rem, 72vh, 39rem);
+  min-height: clamp(24rem, 56vh, 31rem);
   padding-block: 6rem 3.5rem;
 }
 
@@ -373,7 +341,6 @@ a:hover {
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--band-ink);
-  text-shadow: var(--halo);
 }
 
 .tagline {
@@ -384,7 +351,6 @@ a:hover {
   font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
   line-height: 1.45;
   color: var(--band-muted);
-  text-shadow: var(--halo);
 }
 
 .tagline .sep {
@@ -986,12 +952,8 @@ sup {
 /* Phones */
 
 @media (max-width: 39.99rem) {
-  .hero::after {
-    background: linear-gradient(0deg, var(--scrim) 0%, var(--scrim-mid) 42%, transparent 72%);
-  }
-
   .hero-inner {
-    min-height: 35rem;
+    min-height: 25rem;
     padding-bottom: 5.25rem;
   }
 
@@ -1010,7 +972,6 @@ sup {
 
 @media print {
   .topbar,
-  .field,
   .skip-link,
   .to-top {
     display: none !important;
@@ -1019,10 +980,6 @@ sup {
   .hero {
     background: none;
     color: #000;
-  }
-
-  .hero::after {
-    display: none;
   }
 
   .hero-inner {
