@@ -4,21 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Qiao Sun</title>
-  <meta name="description" content="Qiao Sun is an undergraduate at MIT and a Student Researcher at Google DeepMind, working on foundational AI research, particularly training algorithms.">
+  <meta name="description" content="Qiao Sun is an undergraduate at MIT and a Student Researcher at Google DeepMind, studying how learning and computation give rise to intelligence.">
   <meta name="author" content="Qiao Sun">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0e1517" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0a171b">
   <link rel="canonical" href="https://qiaosungithub.github.io/">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/newsreader-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/site.css">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') root.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+  <script src="assets/js/site.js" defer></script>
 
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Qiao Sun">
-  <meta property="og:description" content="Undergraduate at MIT and Student Researcher at Google DeepMind, working on foundational AI research, particularly training algorithms.">
+  <meta property="og:description" content="Undergraduate at MIT and Student Researcher at Google DeepMind, studying how learning and computation give rise to intelligence.">
   <meta property="og:url" content="https://qiaosungithub.github.io/">
   <meta property="og:image" content="https://qiaosungithub.github.io/assets/images/portrait.jpg">
   <meta name="twitter:card" content="summary">
@@ -38,56 +48,86 @@
   </script>
 </head>
 <body>
-<div class="page">
-  <main>
-    <header class="intro">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="topbar">
+  <div class="topbar-inner wrap">
+    <a class="wordmark" href="#top">Qiao Sun</a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#experience">Research</a>
+      <a href="#papers">Papers</a>
+      <a href="#education">Education</a>
+      <a href="#honors">Honors</a>
+    </nav>
+    <div class="topbar-actions">
+      <a class="topbar-cv" href="assets/pdf/Qiao-Sun-CV.pdf">CV</a>
+      <button class="theme-toggle" type="button" aria-label="Switch color theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <canvas class="flow" aria-hidden="true"></canvas>
+  <div class="hero-inner wrap">
+    <div class="hero-text">
       <h1 class="name">Qiao Sun</h1>
+      <p class="tagline"><span>Undergraduate at MIT</span><span class="sep" aria-hidden="true">·</span><span>Student Researcher at Google&nbsp;DeepMind</span></p>
+      <ul class="contact">
+        <li>
+          <a class="pill pill-hero" href="mailto:sqa24@mit.edu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+            sqa24@mit.edu
+          </a>
+        </li>
+        <li>
+          <a class="pill pill-hero" href="assets/pdf/Qiao-Sun-CV.pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+            CV
+          </a>
+        </li>
+        <li>
+          <a class="pill pill-hero" href="https://github.com/qiaosungithub">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </div>
+    <p class="flow-caption" aria-hidden="true"><span class="flow-label">noise</span><span class="flow-t">t = 0.00</span></p>
+  </div>
+</header>
 
-      <div class="intro-meta">
-        <p class="tagline"><span>Undergraduate at MIT</span><span class="sep" aria-hidden="true"> · </span><span>Student Researcher at Google&nbsp;DeepMind</span></p>
-        <ul class="contact">
-          <li>
-            <a href="mailto:sqa24@mit.edu">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
-              <span>sqa24@mit.edu</span>
-            </a>
-          </li>
-          <li>
-            <a href="assets/pdf/Qiao-Sun-CV.pdf">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
-              <span>CV</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/qiaosungithub">
-              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-              <span>GitHub</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+<main id="main">
+  <section class="intro wrap" aria-label="About">
+    <img class="portrait" src="assets/images/portrait.jpg" width="480" height="600" alt="Portrait of Qiao Sun">
+    <div class="bio">
+      <p>I am an undergraduate at <a href="https://www.mit.edu/">MIT</a>, studying AI and mathematics. I am currently a Student Researcher on the Foundational AI Research team at Google&nbsp;DeepMind in Cambridge, MA. I work with my host, <a href="https://deqings.github.io/">Deqing&nbsp;Sun</a>, on optimization for recurrent methods and looped models.</p>
+      <p>Since 2024, I have also been an undergraduate researcher in the He Vision Group at MIT, advised by <a href="https://people.csail.mit.edu/kaiming/">Kaiming&nbsp;He</a>. There, I work on generative modeling and fast image generation.</p>
+      <p class="vision">I seek to understand how learning and computation give rise to intelligence, and what the next level of intelligence could be. My methods and topics have changed before and will change again, as they should. I hold them loosely, and hold firmly to the curiosity I started with.</p>
+    </div>
+  </section>
 
-      <div class="bio">
-        <p>I am an undergraduate at <a href="https://www.mit.edu/">MIT</a>, studying AI and mathematics. I am currently a Student Researcher on the Foundational AI Research team at Google&nbsp;DeepMind in Cambridge, MA, where I work with my host, <a href="https://deqings.github.io/">Deqing&nbsp;Sun</a>, on optimization for recurrent methods and looped models. Since 2024, I have been an undergraduate researcher in the He Vision Group at MIT, advised by <a href="https://people.csail.mit.edu/kaiming/">Kaiming&nbsp;He</a>, working on generative modeling and fast image generation.</p>
-        <p>I seek to understand how learning and computation give rise to intelligence, and what the next level of intelligence could be. My methods and topics have changed before and will change again, as they should. I hold them loosely, and hold firmly to the curiosity I started with.</p>
-        <p>My primary interests lie in foundational AI research, particularly training algorithms.</p>
-      </div>
-
-      <img class="portrait" src="assets/images/portrait.jpg" width="480" height="600" alt="Portrait of Qiao Sun">
+  <section class="section wrap reveal" id="experience" aria-labelledby="experience-title">
+    <header class="section-head">
+      <span class="section-index">01</span>
+      <h2 class="section-title" id="experience-title">Research Experience</h2>
     </header>
-
-    <section class="section" aria-labelledby="experience">
-      <h2 class="section-title" id="experience">Research Experience</h2>
-      <div class="stack">
-        <article>
+    <div class="section-body">
+      <ol class="timeline">
+        <li class="tl-item is-current">
+          <span class="tl-dot" aria-hidden="true"></span>
           <div class="entry-head">
             <h3 class="entry-title">Google DeepMind</h3>
             <span class="date">Jul 2026 – Present</span>
           </div>
           <p class="entry-meta">Student Researcher · Foundational AI Research team · Host: Deqing&nbsp;Sun</p>
           <p class="entry-text">Ongoing research on optimization for recurrent methods and looped models.</p>
-        </article>
-        <article>
+        </li>
+        <li class="tl-item is-current">
+          <span class="tl-dot" aria-hidden="true"></span>
           <div class="entry-head">
             <h3 class="entry-title">He Vision Group, MIT</h3>
             <span class="date">Sep 2024 – Present</span>
@@ -97,24 +137,29 @@
             <li>Research on generative modeling, fast image generation, visual understanding, and AI agents.</li>
             <li>One of the group’s infrastructure admins, helping coordinate compute resources and access.</li>
           </ul>
-        </article>
-      </div>
-    </section>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-    <section class="section" aria-labelledby="papers">
-      <h2 class="section-title" id="papers">Selected Papers</h2>
-      <div class="stack">
+  <section class="section wrap reveal" id="papers" aria-labelledby="papers-title">
+    <header class="section-head">
+      <span class="section-index">02</span>
+      <h2 class="section-title" id="papers-title">Selected Papers</h2>
+    </header>
+    <div class="section-body">
+      <div class="papers">
         <article class="paper">
           <a class="paper-figure" href="https://arxiv.org/abs/2502.13129" tabindex="-1" aria-hidden="true">
             <img src="assets/images/uedm.png" width="560" height="520" alt="" loading="lazy">
           </a>
-          <div>
+          <div class="paper-body">
+            <p class="chips"><span class="chip">ICML 2025</span></p>
             <h3 class="paper-title"><a href="https://arxiv.org/abs/2502.13129">Is Noise Conditioning Necessary for Denoising Generative Models?</a></h3>
             <p class="authors"><strong>Qiao&nbsp;Sun</strong><sup>*</sup>, Zhicheng&nbsp;Jiang<sup>*</sup>, Hanhong&nbsp;Zhao<sup>*</sup>, Kaiming&nbsp;He</p>
-            <p class="venue">ICML 2025</p>
             <p class="summary">Revisits whether diffusion and flow-matching models need noise conditioning, reimplementing eight denoising generative models across several datasets. Proposes uEDM, a noise-unconditional diffusion model with competitive performance, with theory that matches the observed behavior.</p>
             <ul class="links">
-              <li><a href="https://arxiv.org/abs/2502.13129">arXiv</a></li>
+              <li><a class="pill" href="https://arxiv.org/abs/2502.13129"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>arXiv</a></li>
             </ul>
           </div>
         </article>
@@ -123,13 +168,13 @@
           <a class="paper-figure" href="https://arxiv.org/abs/2512.10953" tabindex="-1" aria-hidden="true">
             <img src="assets/images/biflow.png" width="560" height="525" alt="" loading="lazy">
           </a>
-          <div>
+          <div class="paper-body">
+            <p class="chips"><span class="chip">CVPR 2026</span><span class="chip chip-warm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>Highlight</span></p>
             <h3 class="paper-title"><a href="https://arxiv.org/abs/2512.10953">Bidirectional Normalizing Flow: From Data to Noise and Back</a></h3>
             <p class="authors">Yiyang&nbsp;Lu<sup>*†</sup>, <strong>Qiao&nbsp;Sun</strong><sup>*†</sup>, Xianbang&nbsp;Wang<sup>*</sup>, Zhicheng&nbsp;Jiang, Hanhong&nbsp;Zhao, Kaiming&nbsp;He</p>
-            <p class="venue">CVPR 2026 · Highlight</p>
             <p class="summary">Revisits normalizing flows with a learned reverse map, removing explicit inverse-flow computation and slow autoregressive inference. Hidden-state alignment guides the reverse model, enabling single-evaluation generation with state-of-the-art results among normalizing flows.</p>
             <ul class="links">
-              <li><a href="https://arxiv.org/abs/2512.10953">arXiv</a></li>
+              <li><a class="pill" href="https://arxiv.org/abs/2512.10953"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>arXiv</a></li>
             </ul>
           </div>
         </article>
@@ -138,43 +183,51 @@
           <a class="paper-figure" href="https://arxiv.org/abs/2601.22158" tabindex="-1" aria-hidden="true">
             <img src="assets/images/pmf.jpg" width="560" height="572" alt="" loading="lazy">
           </a>
-          <div>
+          <div class="paper-body">
+            <p class="chips"><span class="chip">ICML 2026</span></p>
             <h3 class="paper-title"><a href="https://arxiv.org/abs/2601.22158">One-step Latent-free Image Generation with Pixel Mean Flows</a></h3>
             <p class="authors">Yiyang&nbsp;Lu<sup>*</sup>, Susie&nbsp;Lu<sup>*</sup>, <strong>Qiao&nbsp;Sun</strong><sup>*</sup>, Hanhong&nbsp;Zhao<sup>*</sup>, Zhicheng&nbsp;Jiang, Xianbang&nbsp;Wang, Tianhong&nbsp;Li, Zhengyang&nbsp;Geng, Kaiming&nbsp;He</p>
-            <p class="venue">ICML 2026</p>
             <p class="summary">A strong baseline for one-step, latent-free image generation in pixel space, using MeanFlow with x-prediction. Reaches 2.22 FID on ImageNet 256×256 and 2.48 FID on ImageNet 512×512.</p>
             <ul class="links">
-              <li><a href="https://arxiv.org/abs/2601.22158">arXiv</a></li>
-              <li><a href="https://github.com/Lyy-iiis/pMF">Code</a></li>
+              <li><a class="pill" href="https://arxiv.org/abs/2601.22158"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>arXiv</a></li>
+              <li><a class="pill" href="https://github.com/Lyy-iiis/pMF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.5 7-5 5 5 5M15.5 7l5 5-5 5"/></svg>Code</a></li>
             </ul>
           </div>
         </article>
       </div>
       <p class="footnote"><sup>*</sup> Equal contribution · <sup>†</sup> Project lead</p>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" aria-labelledby="education">
-      <h2 class="section-title" id="education">Education</h2>
-      <div class="stack">
-        <article>
-          <div class="entry-head">
-            <h3 class="entry-title">Massachusetts Institute of Technology</h3>
-            <span class="date">Sep 2024 – Present</span>
-          </div>
-          <p class="entry-meta">Undergraduate in AI and Mathematics · Expected&nbsp;June&nbsp;2027 · GPA&nbsp;4.9/5.0</p>
-        </article>
-        <article>
-          <div class="entry-head">
-            <h3 class="entry-title">Tsinghua University</h3>
-            <span class="date">Sep 2023 – Jul 2024</span>
-          </div>
-          <p class="entry-meta">Pre-college student, Institute for Interdisciplinary Information Sciences · GPA&nbsp;4.00/4.00</p>
-        </article>
-      </div>
-    </section>
+  <section class="section wrap reveal" id="education" aria-labelledby="education-title">
+    <header class="section-head">
+      <span class="section-index">03</span>
+      <h2 class="section-title" id="education-title">Education</h2>
+    </header>
+    <div class="section-body stack">
+      <article>
+        <div class="entry-head">
+          <h3 class="entry-title">Massachusetts Institute of Technology</h3>
+          <span class="date">Sep 2024 – Present</span>
+        </div>
+        <p class="entry-meta">Undergraduate in AI and Mathematics · Expected&nbsp;June&nbsp;2027 · GPA&nbsp;4.9/5.0</p>
+      </article>
+      <article>
+        <div class="entry-head">
+          <h3 class="entry-title">Tsinghua University</h3>
+          <span class="date">Sep 2023 – Jul 2024</span>
+        </div>
+        <p class="entry-meta">Pre-college student, Institute for Interdisciplinary Information Sciences · GPA&nbsp;4.00/4.00</p>
+      </article>
+    </div>
+  </section>
 
-    <section class="section" aria-labelledby="professional">
-      <h2 class="section-title" id="professional">Professional Experience</h2>
+  <section class="section wrap reveal" id="professional" aria-labelledby="professional-title">
+    <header class="section-head">
+      <span class="section-index">04</span>
+      <h2 class="section-title" id="professional-title">Professional Experience</h2>
+    </header>
+    <div class="section-body">
       <article>
         <div class="entry-head">
           <h3 class="entry-title">Ubiquant Investment (Jiukun Quant)</h3>
@@ -187,10 +240,15 @@
           <li>Built reproducible tools for experiment tracking, factor validation, and portfolio-performance analysis.</li>
         </ul>
       </article>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" aria-labelledby="projects">
-      <h2 class="section-title" id="projects">Projects</h2>
+  <section class="section wrap reveal" id="projects" aria-labelledby="projects-title">
+    <header class="section-head">
+      <span class="section-index">05</span>
+      <h2 class="section-title" id="projects-title">Projects</h2>
+    </header>
+    <div class="section-body">
       <article>
         <div class="entry-head">
           <h3 class="entry-title">Fast Humanoid Loco-Manipulation via Flow Matching</h3>
@@ -199,27 +257,52 @@
         <p class="entry-meta">Course project, MIT 6.4210 Robotic Manipulation</p>
         <p class="entry-text">Reimplemented a BeyondMimic-style humanoid loco-manipulation pipeline with simulated data preparation, diffusion training, and post-hoc control guidance. Replacing DDPM sampling with flow matching gave lower-latency control with 5 sampling steps.</p>
         <ul class="links">
-          <li><a href="https://www.youtube.com/watch?v=MIpTpM4C71k&amp;t=2s">Video</a></li>
+          <li><a class="pill" href="https://www.youtube.com/watch?v=MIpTpM4C71k&amp;t=2s"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>Video</a></li>
         </ul>
       </article>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" aria-labelledby="honors">
-      <h2 class="section-title" id="honors">Honors &amp; Awards</h2>
+  <section class="section wrap reveal" id="honors" aria-labelledby="honors-title">
+    <header class="section-head">
+      <span class="section-index">06</span>
+      <h2 class="section-title" id="honors-title">Honors &amp; Awards</h2>
+    </header>
+    <div class="section-body">
       <ul class="honors">
-        <li><span><strong>Top 17</strong> · Putnam Mathematical Competition</span><span class="date">2025</span></li>
-        <li><span><strong>2nd place</strong> · Putnam Mathematical Competition</span><span class="date">2024</span></li>
-        <li><span><strong>Gold Medal, 11th place</strong> · International Mathematical Olympiad</span><span class="date">2023</span></li>
-        <li><span><strong>Gold Medal, 1st place with a perfect score</strong> · Chinese Mathematical Olympiad</span><span class="date">2022</span></li>
-        <li><span><strong>Excellent Award</strong> · Alibaba Global Mathematics Competition<span class="honor-note">Top 70 among 50,000+ participants</span></span><span class="date">2022–2024</span></li>
+        <li class="honor">
+          <p class="honor-rank"><span class="pre">Top</span>17</p>
+          <p class="honor-event">Putnam Mathematical Competition</p>
+          <p class="honor-meta">2025</p>
+        </li>
+        <li class="honor">
+          <p class="honor-rank">2<span class="ord">nd</span></p>
+          <p class="honor-event">Putnam Mathematical Competition</p>
+          <p class="honor-meta">2024</p>
+        </li>
+        <li class="honor">
+          <p class="honor-rank">11<span class="ord">th</span></p>
+          <p class="honor-event">International Mathematical Olympiad</p>
+          <p class="honor-meta">Gold Medal · 2023</p>
+        </li>
+        <li class="honor">
+          <p class="honor-rank">1<span class="ord">st</span></p>
+          <p class="honor-event">Chinese Mathematical Olympiad</p>
+          <p class="honor-meta">Gold Medal, perfect score · 2022</p>
+        </li>
+        <li class="honor honor-wide">
+          <p class="honor-rank"><span class="pre">Top</span>70</p>
+          <p class="honor-event">Alibaba Global Mathematics Competition</p>
+          <p class="honor-meta">Excellent Award, among 50,000+ participants · 2022–2024</p>
+        </li>
       </ul>
-    </section>
-  </main>
+    </div>
+  </section>
+</main>
 
-  <footer class="footer">
-    <p>© 2026 Qiao Sun</p>
-    <p>Last updated October 2026</p>
-  </footer>
-</div>
+<footer class="footer wrap">
+  <p>© 2026 Qiao Sun · Last updated October 2026</p>
+  <a class="to-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+</footer>
 </body>
 </html>
